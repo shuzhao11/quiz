@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>在线考试系统后台试题管理页面</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/ready.css" th:href="@{/assets/css/ready.css}">
+    <link rel="stylesheet" href="assets/css/demo.css" th:href="@{/assets/css/demo.css}">
+</head>
+<body>
+<div class="wrapper">
+    <!--header-->
+    <div th:replace="commons/bar::header"></div>
+
+    <!--slidebar-->
+    <div th:replace="commons/bar::#sidebar(activeUri='/paper/getAllPaper')"></div>
+
+    <!--main panel-->
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <h4 class="page-title" th:text="${paperName}+'试卷——试题管理页面'"></h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"><h2><a class="btn btn-primary" href="#" th:href="@{/paper/toAddQuestion/}+${papid}">人工组题</a></h2> </div>
+                            <div class="col-md-2"><h2><a class="btn btn-primary" href="#" th:href="@{/paper/toRandomQuestion/}+${papid}">随机组题</a></h2> </div>
+                            <div class="col-md-2"><h2><a class="btn btn-info" href="#" th:href="@{/paper/getAllPaper}">返回</a></h2> </div>
+                        </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-head-bg-success">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">批量删除</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">题型</th>
+                                        <th scope="col">试题知识</th>
+                                        <th scope="col">题目</th>
+                                        <th scope="col">正确选项</th>
+                                        <th scope="col">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <form th:action="@{/paper/deleteAllQues/}+${papid}" method="post">
+                                    <tr th:each="quepap,quepapStat:${questionPapers}">
+                                        <td>
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" th:name="ques" th:value="${quepap.id}">
+                                                <span class="form-check-sign">-</span>
+                                            </label>
+                                        </td>
+                                        <td th:text="${quepapStat.count}"></td>
+                                        <td th:if="${quepap.getQuestion().questionType}=='x'" th:text="单择题"></td>
+                                        <td th:if="${quepap.getQuestion().questionType}=='y'" th:text="多选题"></td>
+                                        <td th:if="${quepap.getQuestion().questionType}=='z'" th:text="判断题"></td>
+                                        <td th:text="${quepap.getQuestion().questionCourse}"></td>
+                                        <td th:text="${quepap.getQuestion().questionName}"></td>
+                                        <td th:text="${quepap.getQuestion().questionOpright}"></td>
+                                        <td>
+                                            <a class="btn btn-sm btn-warning" th:href="'/paper/detachQuestion?paperId='+${papid}+'&qpId='+${quepap.id}">移除</a>
+                                        </td>
+                                    </tr>
+                                                <button class="btn btn-danger" th:text="一键删除"></button>
+                                    </form>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--footer-->
+        <div th:replace="commons/bar::footer"></div>
+</div>
+</div>
+//删除表单
+<form id="deleteClasseForm" method="post">
+    <input type="hidden" name="_method" value="delete">
+</form>
+<!--映入jclary，src-->
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+<script th:src="@{/webjars/layer/src/layer.js}"></script>
+<script>
+    //删除指定id试题
+    $(".deleteBtn").click(function () {
+        //获取uri
+        // $(this).attr("del_uri")
+        //提交表单
+        // $("#deleteClasseForm").attr("action",$(this).attr("del_uri")).submit();
+        if(confirm("确实要删除吗？")){
+            //提交表单
+            $("#deleteClasseForm").attr("action",$(this).attr("del_uri")).submit();
+            layer.msg("删除成功", {time:2000, icon:6});
+        }else {
+            layer.msg("删除取消", {time:2000, icon:5, shift:6});
+        }
+        return false;
+    });
+
+</script>
+</body>
+</html>

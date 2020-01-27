@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.quiz.mapper.RecordMapper">
+	<resultMap id="RecordResult" type="com.zhao.quiz.domain.Record">
+		<id property="recordId" column="record_id" />
+		<result property="recordName" column="record_name"/>
+		<result property="studentId" column="student_id"/>
+		<result property="paperId" column="paper_id"/>
+		<result property="recordAnswer" column="record_answer"/>
+		<result property="recordAcc" column="record_acc"/>
+		<result property="recordScore" column="record_score"/>
+		<association property="student" column="#" javaType="com.zhao.quiz.domain.Student" resultMap="studentResult"/>
+	</resultMap>
+	<resultMap id="studentResult" type="com.zhao.quiz.domain.Student">
+		<id property="studentId" column="student_id"/>
+		<result property="studentName" column="student_name"/>
+	</resultMap>
+	<!--查询所有学生信息包括班级-->
+	<select id="queryAll" resultMap="RecordResult">
+		select * from record left join student	on record.student_id = student.student_id
+	</select>
+	<!--根据学生id查询考试信息-->
+	<select id="queryAllExamById" resultType="com.zhao.quiz.domain.Record" parameterType="Integer">
+		select * from record
+			where student_id =#{id}
+	</select>
+	<!--根据分数排名-->
+	<select id="queryRankScoreRecord" resultMap="RecordResult">
+		select * from record left join student	on record.student_id = student.student_id group by record_score desc
+	</select>
+	<!--根据正确率排名-->
+	<select id="queryRankAccRecord" resultMap="RecordResult">
+		select * from record left join student	on record.student_id = student.student_id group by record_acc desc
+	</select>
+	<!--添加记录-->
+	<insert id="addRecord" parameterType="com.zhao.quiz.domain.Record">
+		insert into record
+				(record_name,student_id,paper_id,record_answer,record_acc,record_score)
+			values
+				(#{recordName},#{studentId},#{paperId},#{recordAnswer},#{recordAcc},#{recordScore})
+	</insert>
+</mapper>

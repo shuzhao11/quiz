@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>在线考试系统后台试题管理页面</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/ready.css" th:href="@{/assets/css/ready.css}">
+    <link rel="stylesheet" href="assets/css/demo.css" th:href="@{/assets/css/demo.css}">
+</head>
+<body>
+<div class="wrapper">
+    <!--header-->
+    <div th:replace="commons/bar::header"></div>
+
+    <!--slidebar-->
+    <div th:replace="commons/bar::#sidebar(activeUri='/paper/getAllPaper')"></div>
+
+    <!--main panel-->
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <h4 class="page-title" th:text="${paperName}+'试卷——随机组题试题页面'"></h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-md-2 text-warning"><h5>选择课程题量</h5> </div>
+                        <div class="row">
+                            <div class="col-md-2"><h2><a class="btn btn-info" href="#" th:href="@{/paper/toManagerQuestion/}+${paperId}">返回</a></h2> </div>
+
+                            <form class="col-md-8" th:action="@{/paper/RandomADDQuestion/}+${paperId}">
+                                <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <select class="form-control form-control-sm" name="questionCourse">
+                                            <option th:each="quecou:${questionCourses}" th:if="${quecou.getQuestionCourse()}=='all'" name="questionCourse" th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}"></option>
+                                            <option th:each="quecou:${questionCourses}" th:if="${quecou.getQuestionCourse()}!='all'" name="questionCourse" th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                   <div class="form-group">
+                                       <input type="text" class="form-text text-muted" id="QuesNums" name="QuesNums" placeholder="题目数量">
+                                   </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary btn-border btn-round" th:text="生成试题"></button>
+                                    </div>
+                                 </div>
+                                </div>
+                            </form>
+                        </div>
+
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-head-bg-success">
+                                    <thead>
+                                        <tr>
+                                            <td th:text="总题数目"></td>
+                                            <td th:text="${TotalQuestionNums}"></td>
+                                        </tr>
+                                        <tr th:each="qc,qcStat:${course}">
+                                            <td th:text="${qc}">#</td>
+                                            <td th:text="${count.get(qcStat.count-1)}">#</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<!--                                    <tr th:each="que,queStat:${pageInfo.list}">-->
+<!--                                        <td th:text="${queStat.count}"></td>-->
+<!--                                        <td th:if="${que.questionType}=='x'" th:text="单择题"></td>-->
+<!--                                        <td th:if="${que.questionType}=='y'" th:text="多选题"></td>-->
+<!--                                        <td th:if="${que.questionType}=='z'" th:text="判断题"></td>-->
+<!--                                        <td th:text="${que.questionCourse}"></td>-->
+<!--                                        <td th:text="${#strings.abbreviate(que.questionName,10)}"></td>-->
+<!--                                        <td th:text="${#strings.abbreviate(que.questionOpa,10)}"></td>-->
+<!--                                        <td th:text="${#strings.abbreviate(que.questionOpb,10)}"></td>-->
+<!--                                        <td th:text="${#strings.abbreviate(que.questionOpc,10)}"></td>-->
+<!--                                        <td th:text="${#strings.abbreviate(que.questionOpd,10)}"></td>-->
+<!--                                        <td th:text="${que.questionOpright}"></td>-->
+<!--                                        <td>-->
+<!--&lt;!&ndash;                                            <button class="btn btn-sm btn-info" th:href="@{/paper/AddQuestion/}+${que.questionId}" th:if="!${quesds.contains(que.questionId)}">+</button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <button class="btn btn-sm btn-danger"th:href="@{/paper/AddQuestion/}+${que.questionId}" th:if="${quesds.contains(que.questionId)}" disabled="">-</button>&ndash;&gt;-->
+<!--                                            <a class="btn btn-sm btn-info"th:href="'/paper/AddQuestion?paperId='+${paperId}+'&quesId='+${que.questionId}+'&pageNum='+${pageInfo.pageNum}+'&questionCourse='+${questionCourseresRes}+'&questionType='+${questionTypesRes}" th:if="!${quesds.contains(que.questionId)}">+</a>-->
+<!--                                            <button class="btn btn-sm btn-danger" th:if="${quesds.contains(que.questionId)}" disabled="">！</button>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--footer-->
+        <div th:replace="commons/bar::footer"></div>
+</div>
+</div>
+//删除表单
+<form id="deleteClasseForm" method="post">
+    <input type="hidden" name="_method" value="delete">
+</form>
+<!--映入jclary，src-->
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+<script th:src="@{/webjars/layer/src/layer.js}"></script>
+<script>
+    //删除指定id试题
+    $(".deleteBtn").click(function () {
+        //获取uri
+        // $(this).attr("del_uri")
+        //提交表单
+        // $("#deleteClasseForm").attr("action",$(this).attr("del_uri")).submit();
+        if(confirm("确实要删除吗？")){
+            //提交表单
+            $("#deleteClasseForm").attr("action",$(this).attr("del_uri")).submit();
+            layer.msg("删除成功", {time:2000, icon:6});
+        }else {
+            layer.msg("删除取消", {time:2000, icon:5, shift:6});
+        }
+        return false;
+    });
+
+</script>
+</body>
+</html>

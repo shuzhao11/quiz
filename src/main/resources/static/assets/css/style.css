@@ -1,0 +1,212 @@
+
+/*==================================
+font-family: 'Poppins', sans-serif;
+==================================== */
+
+
+/*=========== TABLE OF CONTENTS ===========
+1.  General css (Reset code)
+
+/*-------------------------------------
+		1.General css (Reset code)
+--------------------------------------*/
+*{
+    padding: 0;
+    margin: 0;
+}
+
+*{
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -o-box-sizing:border-box;
+    -ms-box-sizing:border-box;
+    box-sizing:border-box;
+}
+body{
+    font-family: 'Poppins', sans-serif;
+    font-size:14px;
+    color: #a7a7a7;
+    background: #fff;
+    max-width:1920px;
+    margin:0 auto;
+    overflow-x:hidden;
+}
+
+a,a:hover,a:active,a:focus {
+    display:inline-block;
+    text-decoration:none;
+    color: #555555;
+    font-size: 16px;
+    font-weight: 400;
+    padding:0;
+}
+h1,h2,h3,h4,h5,h6 { 
+    margin: 0;
+    color:#777;
+    font-family: 'Poppins', sans-serif;
+    text-transform: capitalize;
+    font-weight: 400;
+}
+p {
+    margin: 0;
+    line-height: 28px;
+    color: #555555;
+    font-size:16px;
+    font-family: 'Poppins', sans-serif;
+}
+img{    border:none;max-width:100%; height:auto;}
+ul{
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+}
+ul li {
+    list-style: none;
+    
+}
+select,input,textarea,button,.form-control{box-shadow:none;outline:0!important;}
+
+
+html,body{
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+[placeholder]:focus::-webkit-input-placeholder {
+  -webkit-transition: opacity 0.3s 0.3s ease; 
+  -moz-transition: opacity 0.3s 0.3s ease; 
+  -ms-transition: opacity 0.3s 0.3s ease; 
+  -o-transition: opacity 0.3s 0.3s ease; 
+  transition: opacity 0.3s 0.3s ease; 
+  opacity: 0;
+}
+
+/*=============Style css=========*/
+.tlinks{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+/*-------------------------------------
+		2. Kit-name-head
+--------------------------------------*/
+.kit-name-head{
+    background: #26d9b3;
+    background: -moz-linear-gradient(right, #26d9b3 0%, #5a84fd 100%);
+    background: -webkit-linear-gradient(right, #26d9b3 0%, #5a84fd 100%);
+    background: linear-gradient(to right,  #26d9b3 0%, #5a84fd 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#26d9b3', endColorstr='#5a84fd',GradientType=1 );
+}
+
+.kit-name-txt{
+    padding: 75px 0 71px;
+    text-align: center;
+}
+.kit-name-head h2 {
+    font-size: 48px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 18px;
+}
+.kit-name-head h2::first-letter {
+    text-transform: lowercase;
+}
+.kit-name-head h3{
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+}
+
+/*-------------------------------------
+        3. Form-demo
+--------------------------------------*/
+.single-form-demo-set {
+    text-align: center;
+    padding: 60px 0;
+}
+.single-form-img-content { margin-top: 60px;}
+/*.form-img*/
+.form-img {
+    position: relative;
+    box-shadow:0px 5px 30px 5px rgba(154,154,154,.3);
+    -webkit-transition: .5s; 
+    -moz-transition:.5s; 
+    -ms-transition:.5s; 
+    -o-transition:.5s;
+    transition: .5s;
+}
+
+.form-img-hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:transparent;
+    -webkit-transform: scale(0); 
+    -moz-transform:scale(0); 
+    -ms-transform:scale(0); 
+    -o-transform:scale(0);
+    transform: scale(0);
+}
+.form-img:hover .form-img-hover{
+    -webkit-transform: scale(1); 
+    -moz-transform:scale(1); 
+    -ms-transform:scale(1); 
+    -o-transform:scale(1);
+    transform: scale(1);
+    -webkit-transition: .5s; 
+    -moz-transition:.5s; 
+    -ms-transition:.5s; 
+    -o-transition:.5s;
+    transition: .5s;
+}
+
+.form-img:hover {
+    box-shadow:0px 5px 30px 5px rgba(154,154,154,.7);
+}
+/*.form-img*/
+
+
+/*-------------------------------------
+        3. footer-copyright
+--------------------------------------*/
+.footer-copyright{
+    padding: 28px 0;
+    border-top:1px solid #ebebeb;
+}
+.foot-copyright-content {
+    text-align: center;
+}
+
+/*===============================
+    Scroll Top
+===============================*/
+#scroll-Top  .return-to-top {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    display: none;
+    width: 40px;
+    line-height: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 30px;
+    cursor: pointer;
+    color: #fff;
+    background:#5a84fd;
+	border:1px solid #5a84fd;
+	border-radius:5px;
+	-webkit-transition: .5s; 
+	-moz-transition:.5s; 
+	-ms-transition:.5s; 
+	-o-transition:.5s;
+    transition: .5s;
+	z-index: 2;
+}
+#scroll-Top  .return-to-top:hover {
+    background:transparent;
+    color: #26d9b3;
+	border:1px solid #26d9b3;
+	border-radius:50%;
+}
+/*========================Thank you=================

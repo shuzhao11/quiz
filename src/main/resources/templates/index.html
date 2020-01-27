@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>在线考试系统后台首页</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/ready.css" th:href="@{/assets/css/ready.css}">
+    <link rel="stylesheet" href="assets/css/demo.css" th:href="@{/assets/css/demo.css}">
+</head>
+<body>
+<div class="wrapper">
+    <!--header-->
+    <div th:replace="commons/bar::header"></div>
+    <!--slidebar-->
+    <div th:replace="commons/bar::#sidebar"></div>
+    <!--main-->
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card card-stats card-warning">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center">
+                                            <i class="la la-users"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 d-flex align-items-center">
+                                        <div class="numbers">
+                                            <p class="card-category">学生和教师</p>
+                                            <h4 class="card-title" th:text="${alllogers}"></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-stats card-success">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center">
+                                            <i class="la la-bar-chart"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 d-flex align-items-center">
+                                        <div class="numbers">
+                                            <p class="card-category">总计试题</p>
+                                            <h4 class="card-title" th:text="${allQues}"></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-stats card-primary">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="icon-big text-center">
+                                            <i class="la la-check-circle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 d-flex align-items-center">
+                                        <div class="numbers">
+                                            <p class="card-category">共有试卷</p>
+                                            <h4 class="card-title" th:text="${allPaps}"></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">公告</h4>
+                                <p class="card-category">在线考试系统欢迎你的到来</p>
+                            </div>
+                            <div class="card-body">
+                                <div id="task-complete" class="chart-circle mt-4 mb-3"></div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="legend"><i class="la la-circle text-primary"></i>Mr.zhao 2020年1月22日</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                                <div class="card-header ">
+                                <h4 class="card-title">榜单</h4>
+                                <p class="card-category">高分高正确率</p>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-head-bg-success table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">姓名</th>
+                                        <th scope="col">考试</th>
+                                        <th scope="col">最高分数</th>
+                                        <th scope="col">最高正确率</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td th:text="${ScoreHStu.get(0).student.studentName}"></td>
+                                        <td th:text="${ScoreHStu.get(0).recordName}"></td>
+                                        <td th:text="${ScoreHStu.get(0).recordScore}"></td>
+                                        <td>/</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td th:text="${ScoreHStu.get(1).student.studentName}"></td>
+                                        <td th:text="${ScoreHStu.get(1).recordName}"></td>
+                                        <td th:text="${ScoreHStu.get(1).recordScore}"></td>
+                                        <td>/</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td th:text="${AccHStu.get(0).student.studentName}"></td>
+                                        <td th:text="${AccHStu.get(0).recordName}"></td>
+                                        <td>/</td>
+                                        <td th:text="${AccHStu.get(0).recordAcc}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td th:text="${AccHStu.get(1).student.studentName}"></td>
+                                        <td th:text="${AccHStu.get(1).recordName}"></td>
+                                        <td>/</td>
+                                        <td th:text="${AccHStu.get(1).recordAcc}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--footer-->
+        <div th:replace="commons/bar::footer"></div>
+    </div>
+</div>
+
+<!--映入jquery，src-->
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+<script th:src="@{/webjars/layer/src/layer.js}"></script>
+<script>
+
+</script>
+</body>
+</html>

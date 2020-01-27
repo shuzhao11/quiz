@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>在线考试系统后台学生页面</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/ready.css" th:href="@{/assets/css/ready.css}">
+    <link rel="stylesheet" href="assets/css/demo.css" th:href="@{/assets/css/demo.css}">
+</head>
+<body>
+<div class="wrapper">
+    <!--header-->
+    <div th:replace="commons/bar::header"></div>
+
+    <!--slidebar-->
+    <div th:replace="commons/bar::#sidebar(activeUri='/student/getAllStudent')"></div>
+
+    <!--main panel-->
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <h4 class="page-title">学生管理页面</h4>
+                <div class="col-md-6">
+                    <form th:action="@{/student/editStudent}" method="put">
+                        <input type="hidden" name="studentId" th:value="${student.studentId}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="name">姓名</label>
+                                    <input type="text" class="form-control" id="name" name="studentName" th:value="${student.studentName}" placeholder="shuzhao">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">账号</label>
+                                    <input type="text" class="form-control" id="account" name="studentAccount" th:value="${student.studentAccount}" placeholder="shuzhao11 or 2020001">
+                                    <small id="accounthelp" class="form-text text-muted"></small>
+                                </div>
+                                <div class="form-check">
+                                    <label>性别</label><br>
+                                    <select class="form-control" name="studentGender">
+                                        <option th:selected="${student.studentGender==1}" th:text="男" th:value="1"></option>
+                                        <option th:selected="${student.studentGender==0}" th:text="女" th:value="0"></option>
+                                    </select>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">邮箱</label>
+                                    <input type="email" class="form-control" id="email" name="studentEmail" th:value="${student.studentEmail}" placeholder="Enter Email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">密码</label>
+                                    <input type="password" class="form-control" id="password" name="studentPwd" th:value="${student.studentPwd}" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <!--由数据库中查询出来-->
+                                    <label>班级</label>
+                                    <select class="form-control" name="classeId">
+                                        <option th:each="cla:${classes}" th:selected="${cla.classeId==student.classeId}" th:text="${cla.classeName}" th:value="${cla.classeId}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <button class="btn btn-success">Submit</button>
+                                <button class="btn btn-danger">Cancel</button>
+                                <button class="btn btn-primary btn-border btn-round showpwd">显示密码</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--footer-->
+        <div th:replace="commons/bar::footer"></div>
+</div>
+</div>
+</body>
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+//显示密码
+<script>
+    $(".showpwd").click(function () {
+        $("#password").attr("type","text");
+        return false;
+    })
+</script>
+
+</html>

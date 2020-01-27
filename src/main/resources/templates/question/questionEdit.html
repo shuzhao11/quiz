@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>在线考试系统后台试题管理页面</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/ready.css" th:href="@{/assets/css/ready.css}">
+    <link rel="stylesheet" href="assets/css/demo.css" th:href="@{/assets/css/demo.css}">
+</head>
+<body>
+<div class="wrapper">
+    <!--header-->
+    <div th:replace="commons/bar::header"></div>
+
+    <!--slidebar-->
+    <div th:replace="commons/bar::#sidebar(activeUri='/question/getAllQuestion')"></div>
+
+    <!--main panel-->
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <h4 class="page-title">试题管理页面</h4>
+                <div class="col-md-6">
+                    <form th:action="@{/question/EditQuestion}" method="put">
+                        <input type="hidden" name="questionId" th:value="${question.questionId}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <select class="form-control form-control-sm" name="questionCourse">
+                                        <option th:each="quecou:${questionCourses}" th:selected="${quecou.questionCourse==question.getQuestionCourse()}" th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select id="selectType"  class="form-control form-control-sm" name="questionType">
+                                        <option th:each="quetype:${questionTypes}"  id="questionTypex" th:selected="${quetype.getQuestionType()==question.getQuestionType()}" th:if="${quetype.getQuestionType()}=='x'" th:text="单选题" th:value="${quetype.getQuestionType()}"></option>
+                                        <option th:each="quetype:${questionTypes}"  id="questionTypey" th:selected="${quetype.getQuestionType()==question.getQuestionType()}" th:if="${quetype.getQuestionType()}=='y'" th:text="多选题" th:value="${quetype.getQuestionType()}"></option>
+                                        <option th:each="quetype:${questionTypes}"  id="questionTypez" th:selected="${quetype.getQuestionType()==question.getQuestionType()}" th:if="${quetype.getQuestionType()}=='z'" th:text="判断题" th:value="${quetype.getQuestionType()}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">题目</label>
+                                    <input type="text" class="form-control" id="name" name="questionName" th:value="${question.getQuestionName()}" placeholder="题目">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">选项A</label>
+                                    <input type="text" class="form-control" id="opa" name="questionOpa" th:value="${question.getQuestionOpa()}" placeholder="选项内容">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">选项B</label>
+                                    <input type="text" class="form-control" id="opb" name="questionOpb" th:value="${question.getQuestionOpb()}">
+                                </div>
+                                <div id="divc" class="form-group">
+                                    <label for="name">选项C</label>
+                                    <input type="text" class="form-control" id="opc" name="questionOpc" th:value="${question.getQuestionOpc()}">
+                                </div>
+                                <div id="divd" class="form-group">
+                                    <label for="name">选项D</label>
+                                    <input type="text" class="form-control" id="opd" name="questionOpd" th:value="${question.getQuestionOpd()}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">正确答案</label>
+                                    <input type="text" class="form-control" id="opright" name="questionOpright" th:value="${question.getQuestionOpright()}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <button class="btn btn-success" th:text="修改"></button>
+                            <button class="btn btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+    <!--footer-->
+    <div th:replace="commons/bar::footer"></div>
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+//显示密码
+<script>
+    $(".showpwd").click(function () {
+        $("#password").attr("type","text");
+        return false;
+    })
+</script>
+
+
+</body>
+</html>

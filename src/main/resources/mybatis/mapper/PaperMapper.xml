@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.quiz.mapper.PaperMapper">
+	<!--根据paperid查询试题集合-->
+	<!--通过resultMap包含resultMap实现嵌套-->
+	<resultMap type="com.zhao.quiz.domain.QuestionPaper" id="questionPaperResult">
+		<id column="id" property="id" />
+		<result property="questionId" column="question_id" />
+		<result property="paperId" column="paper_id" />
+		<association property="question" javaType="com.zhao.quiz.domain.Question">
+			<id property="questionId" column="question_id"/>
+			<result property="questionType" column="question_type"/>
+			<result property="questionCourse" column="question_course"/>
+        	<result property="questionName" column="question_name"/>
+        	<result property="questionOpa" column="question_opa"/>
+        	<result property="questionOpb" column="question_opb"/>
+        	<result property="questionOpc" column="question_opc"/>
+        	<result property="questionOpd" column="question_opd"/>
+        	<result property="questionOpright" column="question_opright"/>
+		</association>
+		<association property="paper" javaType="com.zhao.quiz.domain.Paper">
+			<id property="paperId" column="paper_id" />
+			<result property="paperName" column="paper_name"></result>
+			<result property="scoreSin" column="score_sin"></result>
+			<result property="scoreChe" column="score_che"></result>
+			<result property="scoreJug" column="score_jug"></result>
+		</association>
+	</resultMap>
+	<!--查询所有试题-->
+	<select id="paperQueryALlQuestionById" resultMap="questionPaperResult">
+		SELECT * FROM
+			question_paper qp
+				LEFT JOIN question q
+					on qp.question_id=q.question_id
+						LEFT JOIN paper p
+					on qp.paper_id=p.paper_id
+			where qp.paper_id=#{id}
+	</select>
+	<!--按照题型分类查询-->
+	<select id="paperQueryALlQuestionByIdOrderByType" resultMap="questionPaperResult">
+		SELECT * FROM
+			question_paper qp
+				LEFT JOIN question q
+					on qp.question_id=q.question_id
+						LEFT JOIN paper p
+					on qp.paper_id=p.paper_id
+			where qp.paper_id=#{id} order by question_type
+	</select>
+	<!--查询所有试卷-->
+    <select id="queryAll" resultType="com.zhao.quiz.domain.Paper">
+		select * from paper
+	</select>
+	<!--根据id查试卷名-->
+    <select id="queryPaperNameById" resultType="com.zhao.quiz.domain.Paper">
+		select paper_name from paper where paper_id=#{id}
+	</select>
+
+	<!--查询paperid对应的所有试题id-->
+    <select id="queryALlQuestionIdInPaperById" resultType="com.zhao.quiz.domain.Question">
+		select question_id from question_paper where paper_id=#{paperId}
+	</select>
+
+	<!--查询不是班主任得试卷-->
+	<select id="queryALlQuestionId" resultType="com.zhao.quiz.domain.Question">
+		SELECT question_id FROM question_paper
+	</select>
+
+	<!--根据id查询试卷-->
+	<select id="queryPaperById" resultType="com.zhao.quiz.domain.Paper">
+		select * from paper where (paper_id) = #{id}
+	</select>
+
+	<!--添加试卷-->
+	<insert id="addPaper">
+		insert into
+		paper
+			(paper_name,score_sin,score_che,score_jug)
+		values
+			(#{paperName},#{scoreSin},#{scoreChe},#{scoreJug})
+	</insert>
+
+	<!--添加试题到试卷通过id-->
+	<insert id="AddQuestionToPaperById" parameterType="com.zhao.quiz.domain.QuestionPaper">
+		insert into
+			question_paper
+				(question_id,paper_id)
+			values
+				(#{questionId},#{paperId})
+	</insert>
+
+	<!--更改试卷信息根据id-->
+	<update id="editPaper" parameterType="com.zhao.quiz.domain.Paper">
+		update
+			paper
+		set
+			paper_name=#{paperName},score_sin=#{scoreSin},score_che=#{scoreChe},score_jug=#{scoreJug}
+		where
+			paper_id = #{paperId}
+	</update>
+
+	<!--根据试卷id删除-->
+	<delete id="deletePaperById">
+		delete from paper where paper_id = #{paperId}
+	</delete>
+
+	<delete id="detachQuestionById" parameterType="Integer">
+		delete from question_paper
+			where id=#{id}
+	</delete>
+
+</mapper>

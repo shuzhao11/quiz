@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>在线考试系统后台试题页面</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/ready.css" th:href="@{/assets/css/ready.css}">
+    <link rel="stylesheet" href="assets/css/demo.css" th:href="@{/assets/css/demo.css}">
+</head>
+<body>
+<div class="wrapper">
+    <!--header-->
+    <div th:replace="commons/bar::header"></div>
+
+    <!--slidebar-->
+    <div th:replace="commons/bar::#sidebar(activeUri='/question/getAllQuestion')"></div>
+
+    <!--main panel-->
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <h4 class="page-title">试题管理页面</h4>
+                <div class="col-md-6">
+                    <form th:action="@{/paper/EditPaper}" method="put">
+                        <input type="hidden" name="paperId" th:value="${paper.paperId}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="name">试卷名称</label>
+                                    <input type="text" class="form-control" id="name" name="paperName" th:value="${paper.getPaperName()}" placeholder="试卷名">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">单选题分数</label>
+                                    <input type="text" class="form-control" id="opa" name="scoreSin" th:value="${paper.getScoreSin()}" placeholder="分数">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">多选题分数</label>
+                                    <input type="text" class="form-control" id="opb" name="scoreChe" th:value="${paper.getScoreChe()}">
+                                </div>
+                                <div id="divc" class="form-group">
+                                    <label for="name">判断题分数</label>
+                                    <input type="text" class="form-control" id="opc" name="scoreJug" th:value="${paper.getScoreJug()}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <button class="btn btn-success" th:text="添加"></button>
+                            <button class="btn btn-danger">取消</button>
+                        </div>
+                    </form>
+                </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+    <!--footer-->
+    <div th:replace="commons/bar::footer"></div>
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+//显示密码
+<script>
+    $(".showpwd").click(function () {
+        $("#password").attr("type","text");
+        return false;
+    })
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.quiz.mapper.TeacherMapper">
+	<!--查询所有教师-->
+    <select id="queryAll" resultType="com.zhao.quiz.domain.Teacher">
+		select * from teacher
+	</select>
+
+	<!--查询不是班主任得教师-->
+	<select id="queryTeacherNotAdvisor" resultType="com.zhao.quiz.domain.Teacher">
+		select teacher_name,teacher_id from teacher
+			where teacher_name not in
+		(select teacher_name
+			from teacher t RIGHT join classe c on t.teacher_id=c.teacher_id)
+	</select>
+
+	<!--根据id查询教师-->
+	<select id="queryTeacherById" resultType="com.zhao.quiz.domain.Teacher">
+		select * from teacher where (teacher_id) = #{id}
+	</select>
+
+	<!--验证教师登录-->
+	<select id="check" parameterType="com.zhao.quiz.domain.Teacher" resultType="com.zhao.quiz.domain.Teacher">
+		select * from teacher where teacher_account=#{teacherAccount} and teacher_pwd=#{teacherPwd}
+	</select>
+
+	<!--添加教师-->
+	<insert id="addTeacher">
+		insert into
+		teacher
+			(teacher_name,teacher_account,teacher_email,teacher_pwd)
+		values
+			(#{teacherName},#{teacherAccount},#{teacherEmail},#{teacherPwd})
+	</insert>
+
+	<!--更改教师信息根据id-->
+	<update id="editTeacher" parameterType="com.zhao.quiz.domain.Teacher">
+		update
+			teacher
+		set
+			teacher_name=#{teacherName},teacher_account=#{teacherAccount},teacher_email=#{teacherEmail},teacher_pwd=#{teacherPwd}
+		where
+			teacher_id = #{teacherId}
+	</update>
+
+	<!--根据教师id删除-->
+	<delete id="deleteTeacherById">
+		delete from teacher where teacher_id = #{teacherId}
+	</delete>
+</mapper>

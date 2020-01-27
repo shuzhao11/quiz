@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>在线考试系统首页</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/ready.css" th:href="@{/static/assets/css/ready.css}">
+    <link rel="stylesheet" href="assets/css/demo.css" th:href="@{/static/assets/css/demo.css}">
+</head>
+<body>
+<div class="container">
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">在线考试系统</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="btn btn btn-warning" data-toggle="tooltip" data-placement="top" title="请登录">首页</a>
+            <a class="btn btn btn-info" data-toggle="tooltip" data-placement="top" title="请登录">考试</a>
+            <a class="btn btn btn-info" data-toggle="tooltip" data-placement="top" title="请登录">记录</a>
+        </nav>
+        <div class="col-md-1">
+            <a class="btn btn-outline-warning" href="#" data-toggle="tooltip" data-placement="top" title="请登录">hello</a>
+        </div>
+    </div>
+
+    <div class="jumbotron">
+        <h1>考试无忧</h1>
+        <p class="lead">优化考试环境，提高考试质量，注册后就可以考试</p>
+        <p><a class="btn btn-lg btn-info" href="#" role="button" th:href="@{prexam/toAddStudent}">现在注册</a></p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button" th:href="@{foreLogin}">现在登录</a></p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card card-stats card-warning">
+                <div class="card-body bg-success">
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="icon-big text-center">
+                                <i class="la la-users"></i>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="numbers">
+                                <p class="card-category">学生和教师</p>
+                                <h4 class="text-center" th:text="${alllogers}"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body bg-info">
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="icon-big text-center">
+                                <i class="la la-bar-chart"></i>
+                            </div>
+                        </div>
+                        <div class="col-7 d-flex align-items-center">
+                            <div class="numbers">
+                                <p class="card-category">总计试题</p>
+                                <h4 class="text-center" th:text="${allQues}"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card card-stats card-primary">
+                <div class="card-body bg-warning">
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="icon-big text-center">
+                                <i class="la la-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="col-7 d-flex align-items-center">
+                            <div class="numbers">
+                                <p class="text-left">共有试卷</p>
+                                <h4 class="text-center" th:text="${allPaps}"></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="footer">
+        <p>&copy;2020年1月23日 by 舒照</p>
+    </footer>
+    <!--footer-->
+    <div th:replace="commons/bar::footer"></div>
+</div> <!-- /container -->
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+</body>
+</html>

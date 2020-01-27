@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.quiz.mapper.ClasseMapper">
+	<!--查询所有班级，班级外键教师id得到教师名称-->
+	<!--通过resultMap包含resultMap实现嵌套-->
+	<resultMap id="classeResult" type="com.zhao.quiz.domain.Classe">
+		<id property="classeId" column="classe_id" />
+		<result property="classeName" column="classe_name"/>
+		<result property="teacherId" column="teacher_id"/>
+		<association property="teacher" column="#" javaType="com.zhao.quiz.domain.Teacher" resultMap="teacherResult"/>
+	</resultMap>
+
+	<resultMap id="teacherResult" type="com.zhao.quiz.domain.Teacher">
+		<id property="teacherId" column="teacher_id"/>
+		<!--只用到了教师名字，其他未写-->
+		<result property="teacherName" column="teacher_name"/>
+	</resultMap>
+	<!--查询所有班级以及班主任-->
+	<select id="queryAll" resultMap="classeResult">
+		select
+			*
+		from
+				classe B
+			left outer join
+		  		teacher A
+		on
+				B.teacher_id = A.teacher_id
+	</select>
+	<!--根据id查询班级-->
+	<select id="queryClasseById" resultType="com.zhao.quiz.domain.Classe">
+		select * from classe where (classe_id) = #{id}
+	</select>
+
+	<!--根据教师id查询班级-->
+	<select id="queryByTeacherId" resultType="com.zhao.quiz.domain.Classe">
+		select * from classe where teacher_id =#{id}
+	</select>
+
+	<!--查询classe表中所有教师-->
+	<select id="queryAllTeacherId" resultType="com.zhao.quiz.domain.Classe">
+		SELECT DISTINCT teacher_id from classe
+	</select>
+
+	<!--添加班级-->
+	<insert id="addClasse">
+		insert into
+			classe
+			(classe_name,teacher_id)
+		values
+			(#{classeName},#{teacherId})
+	</insert>
+	<!--更改班级-->
+	<update id="editClasse" parameterType="com.zhao.quiz.domain.Classe">
+		update
+			classe
+		set
+			classe_name=#{classeName},teacher_id=#{teacherId}
+		where
+			classe_id = #{classeId}
+	</update>
+	<!--根据id删除-->
+	<delete id="deleteClasseById">
+		delete from classe where classe_id = #{classeId}
+	</delete>
+</mapper>

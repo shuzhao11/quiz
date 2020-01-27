@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>在线考试系统试卷记录详情</title>
+    <!-- Bootstrap core CSS -->
+    <link href="#" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <!--examnav-->
+    <div th:replace="commons/bar::#examnav(activeUri='/exam/toHist')"></div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+            <div>
+                <div class="row form-check" th:each="qb,qbStat:${questionPapers}">
+                    <div class="col-xs-12 col-lg-12">
+                        <!--分三种题型显示以及提交值-->
+                        <u th:if="${qb.question.getQuestionOpright()==ans.get(qbStat.count-1)}">
+                            <label th:if="${qb.question.questionType=='y'}" class="alert-success" th:text="${qbStat.count}+'.('+'多选题'+')'+${qb.question.questionName}+'（ ）'+'————你的答案：'+${ans.get(qbStat.count-1)}+'  ————  正确'"></label><br>
+                            <label th:if="${qb.question.questionType!='y'}" class="alert-success" th:text="${qbStat.count}+'.'+${qb.question.questionName}+'（ ）'+'————你的答案：'+${ans.get(qbStat.count-1)}+'  ————  正确'"></label>
+                        </u>
+                        <u th:if="${qb.question.getQuestionOpright()!=ans.get(qbStat.count-1)}">
+                            <label th:if="${qb.question.questionType=='y'}" class="alert-danger" th:text="${qbStat.count}+'.('+'多选题'+')'+${qb.question.questionName}+'（ ）'+'————你的答案：'+${ans.get(qbStat.count-1)}+'  ————  正确答案：'+${qb.question.getQuestionOpright()}"></label><br>
+                            <label th:if="${qb.question.questionType!='y'}" class="alert-danger" th:text="${qbStat.count}+'.'+${qb.question.questionName}+'（ ）'+'————你的答案：'+${ans.get(qbStat.count-1)}+'  ————  正确答案：'+${qb.question.getQuestionOpright()}"></label>
+                        </u>
+                        <br th:if="${qb.question.questionType!='y'}">
+                        <label class="form-radio-label" th:if="${qb.question.questionType=='x'}">
+                            <span class="form-radio-sign" th:text="'A.'+${qb.question.getQuestionOpa()}"></span><br>
+                            <span class="form-radio-sign" th:text="'B.'+${qb.question.getQuestionOpb()}"></span><br>
+                            <span class="form-radio-sign" th:if="${qb.question.getQuestionOpc()}!=null"  th:text="'C.'+${qb.question.getQuestionOpc()}"></span><br>
+                            <span class="form-radio-sign" th:if="${qb.question.getQuestionOpd()}!=null"  th:text="'D.'+${qb.question.getQuestionOpd()}"></span><br><br>
+                        </label>
+                        <label class="form-radio-label" th:if="${qb.question.questionType=='y'}">
+                            <span class="form-radio-sign" th:text="'A.'+${qb.question.getQuestionOpa()}"></span><br>
+                            <span class="form-radio-sign" th:text="'B.'+${qb.question.getQuestionOpb()}"></span><br>
+                            <span class="form-radio-sign" th:text="'C.'+${qb.question.getQuestionOpc()}"></span><br>
+                            <span class="form-radio-sign" th:text="'D.'+${qb.question.getQuestionOpd()}"></span><br><br>
+                        </label>
+                        <label class="form-radio-label" th:if="${qb.question.questionType=='z'}">
+                            <span class="form-radio-sign" th:text="${qb.question.getQuestionOpa()}"></span><br>
+                            <span class="form-radio-sign" th:text="${qb.question.getQuestionOpb()}"></span><br>
+                        </label>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+    <!--footer-->
+    <div th:replace="commons/bar::footer"></div>
+</div> <!-- /container -->
+</body>
+</html>

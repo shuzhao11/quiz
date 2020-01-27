@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>在线考试系统首页</title>
+    <!-- Bootstrap core CSS -->
+    <link href="#" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div id="examnav" th:fragment="examnav" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">在线考试系统</h5>
+        <nav class="my-2 my-md-0 mr-md-5">
+            <a class="text-dark mr-md-5" href="#" disabled th:text="${paperName.paperName}"></a>
+            <a class="btn btn-info" th:class="${activeUri=='/exam/toHome'?'btn btn-warning':'btn btn-info'}" th:href="@{/exam/toHome}" href="#" disabled="">首页</a>
+            <a class="btn btn-info" th:class="${activeUri=='/exam/toExam'?'btn btn-warning':'btn btn-info'}" th:href="@{/exam/toExam}">考试</a>
+            <a class="btn btn-info" th:class="${activeUri=='/exam/toHist'?'btn btn-warning':'btn btn-info'}" th:href="@{/exam/toHist/}+${session.loger.studentId}">记录</a>
+        </nav>
+        <div class="col-md-1">
+            <a class="btn btn-outline-warning" href="#">用户</a>
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-outline-primary" href="#" th:text="${session.loger.getStudentAccount()}"></a>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-danger" href="#" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div id="timemchine" class="alert alert-success col-3 fixedNav fixed-top m-lg-4" role="alert" th:text="'现 在 时 间 :'+${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}+'----------------结 束 时 间 :'+${#dates.format(examById.examEnd, 'yyyy-MM-dd hh:mm:ss')}+'----------------温馨提示：错选漏选不得分，提交后不可再次答题,请在规定时间内提交试卷.'"></div>
+        <div class="col-md-3"></div>
+        <form th:action="@{/exam/submitExam}" method="post">
+            <button class="btn btn-success" th:text="提交"></button>
+            <!--提交试卷id，学生id-->
+            <input type="hidden" name="paperId" th:each="qb,qbStat:${questionPapers}" th:value="${qb.paperId}">
+            <input type="hidden" name="studentId" th:value="${session.loger.studentId}">
+            <div>
+                <div class="row form-check" th:each="qb,qbStat:${questionPapers}">
+                    <div class="col-xs-12 col-lg-12">
+                        <!--分三种题型显示以及提交值-->
+                        <label th:if="${qb.question.questionType=='y'}" th:text="${qbStat.count}+'.('+'多选题'+')'+${qb.question.questionName}+'（ ）'"></label><br>
+                        <label th:if="${qb.question.questionType!='y'}" th:text="${qbStat.count}+'.'+${qb.question.questionName}+'（ ）'"></label>
+                        <br th:if="${qb.question.questionType!='y'}">
+                        <label class="form-radio-label" th:if="${qb.question.questionType=='x'}">
+                            <input class="form-radio-input" type="radio" th:name="'optionsSelect'+${qb.question.questionId}" value="A">
+                            <span class="form-radio-sign" th:text="'A.'+${qb.question.getQuestionOpa()}"></span><br>
+                            <input class="form-radio-input" type="radio" th:name="'optionsSelect'+${qb.question.questionId}" value="B">
+                            <span class="form-radio-sign" th:text="'B.'+${qb.question.getQuestionOpb()}"></span><br>
+                            <input class="form-radio-input" th:if="${qb.question.getQuestionOpc()}!=null" type="radio" th:name="'optionsSelect'+${qb.question.questionId}" value="C">
+                            <span class="form-radio-sign" th:if="${qb.question.getQuestionOpc()}!=null"  th:text="'C.'+${qb.question.getQuestionOpc()}"></span><br>
+                            <input class="form-radio-input" th:if="${qb.question.getQuestionOpd()}!=null" type="radio" th:name="'optionsSelect'+${qb.question.questionId}" value="D">
+                            <span class="form-radio-sign" th:if="${qb.question.getQuestionOpd()}!=null"  th:text="'D.'+${qb.question.getQuestionOpd()}"></span><br><br>
+                        </label>
+                        <label class="form-radio-label" th:if="${qb.question.questionType=='y'}">
+                            <input class="form-radio-input" type="checkbox" th:name="'optionsSelect'+${qb.question.questionId}" value="A">
+                            <span class="form-radio-sign" th:text="'A.'+${qb.question.getQuestionOpa()}"></span><br>
+                            <input class="form-radio-input" type="checkbox" th:name="'optionsSelect'+${qb.question.questionId}" value="B">
+                            <span class="form-radio-sign" th:text="'B.'+${qb.question.getQuestionOpb()}"></span><br>
+                            <input class="form-radio-input"  type="checkbox" th:name="'optionsSelect'+${qb.question.questionId}" value="C">
+                            <span class="form-radio-sign" th:text="'C.'+${qb.question.getQuestionOpc()}"></span><br>
+                            <input class="form-radio-input"  type="checkbox" th:name="'optionsSelect'+${qb.question.questionId}" value="D">
+                            <span class="form-radio-sign" th:text="'D.'+${qb.question.getQuestionOpd()}"></span><br><br>
+                        </label>
+                        <label class="form-radio-label" th:if="${qb.question.questionType=='z'}">
+                            <input class="form-radio-input" type="radio" th:name="'optionsSelect'+${qb.question.questionId}" value="T">
+                            <span class="form-radio-sign" th:text="${qb.question.getQuestionOpa()}"></span><br>
+                            <input class="form-radio-input" type="radio" th:name="'optionsSelect'+${qb.question.questionId}" value="F">
+                            <span class="form-radio-sign" th:text="${qb.question.getQuestionOpb()}"></span><br>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--footer-->
+    <div th:replace="commons/bar::footer"></div>
+</div> <!-- /container -->
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+<script type="text/javascript">
+        $(function () {
+            setInterval(function () {
+                $("#timemchine").load(location.href + " #timemchine");
+            }, 1000);
+        })
+</script>
+</body>
+</html>

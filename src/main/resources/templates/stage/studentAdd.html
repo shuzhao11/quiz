@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>在线考试系统学生注册</title>
+    <!-- Bootstrap core CSS -->
+    <link href="#" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <!--main panel-->
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-8">
+            <div class="main-panel">
+                <div class="content">
+                    <div class="container">
+                        <h4 class="page-title">学生注册页面</h4>
+                        <form th:action="@{/prexam/AddStudent}">
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="name">姓名</label>
+                                            <input type="text" class="form-control" name="studentName" id="name" placeholder="shuzhao">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">账号</label>
+                                            <input type="text" class="form-control" name="studentAccount" id="account" placeholder="数字字母">
+                                            <small id="accounthelp" class="form-text text-muted"></small>
+                                        </div>
+                                        <div class="form-check">
+                                            <label>性别</label><br>
+                                            <label class="form-radio-label">
+                                                <input class="form-radio-input" type="radio" name="studentGender" value="1">
+                                                <span class="form-radio-sign">男</span>
+                                            </label>
+                                            <label class="form-radio-label ml-3">
+                                                <input class="form-radio-input" type="radio" name="studentGender" value="0">
+                                                <span class="form-radio-sign">女</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">邮件</label>
+                                            <input type="email" class="form-control" id="email" name="studentEmail" placeholder="Enter Email">
+                                            <small id="emailHelp" class="form-text text-muted"></small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">密码</label>
+                                            <input type="password" class="form-control" id="password" name="studentPwd" placeholder="Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <!--由数据库中查询出来-->
+                                            <label>班级</label>
+                                            <select class="form-control" name="classeId">
+                                                <option th:each="cla:${allClasees}" th:text="${cla.classeName}" th:value="${cla.classeId}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="card-action">
+                                        <button class="btn btn-success">Submit</button>
+                                        <button class="btn btn-danger" type="reset">Cancel</button>
+                                        <a class="btn btn-sm btn-info" th:href="@{/foreLogin}">返回</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>公共页面抽取</title>
+    <link href="#" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+<!--header-->
+<div class="main-header" th:fragment="header">
+    <div class="logo-header">
+        <div class="page-header">
+            <h5>在线考试系统<small>后台</small></h5>
+        </div>
+        <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
+    </div>
+    <!--head-->
+    <nav class="navbar navbar-header navbar-expand-md">
+        <div class="container-fluid">
+            <form class="navbar-left navbar-form nav-search mr-md-2" action="">
+                <td><span class="h4">考试无忧</span>  <i class="la la-flag-checkered"></i></td>
+            </form>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <u th:if="${session.logerd!=null}">
+                                <h6><span class="la la-forumbee text-info" th:if="${session.logerd.power}==0" th:text="教师"></span></h6>
+                                <h6><span class="la la-gavel text-success" th:if="${session.logerd.power}==1" th:text="管理员"></span></h6>
+                            </u>
+                        </div>
+                        <div class="col-md-4">
+                            <k th:if="${session.logerd!=null}">
+                                <h6><span class="text-warning" th:text="${session.logerd.teacherName}"></span></h6>
+                            </k>
+                        </div>
+                        <!--解决项目路径问题-->
+                        <base th:href="${#request.getContextPath()}+'/'">
+                        <div class="col-md-2">
+                            <a class="btn btn-danger" href="#" th:href="@{/logout}">Logout</a>
+                        </div>
+                    </div>
+        </div>
+    </nav>
+</div>
+
+
+<!--slidebar-->
+<div class="sidebar" id="sidebar">
+    <div class="scrollbar-inner sidebar-wrapper">
+        <div class="user">
+            <div class="photo">
+<!--                <img th:src="${static.assets.img}" src="#">-->
+            </div>
+            <div class="info">
+                <a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                </a>
+            </div>
+        </div>
+        <ul class="nav">
+            <li class="nav-item" th:class="${activeUri=='/student/getAllStudent'?'nav-item active':'nav-item'}">
+                <a class="nav-link active" href="#" th:href="@{/student/getAllStudent}">
+                    <i class="la la-child"></i>
+                    <p>学生管理</p>
+                </a>
+            </li>
+            <li class="nav-item" th:class="${activeUri=='/teacher/getAllTeacher'?'nav-item active':'nav-item'}">
+                <a class="nav-link" href="#" th:href="@{/teacher/getAllTeacher}">
+                    <i class="la la-male"></i>
+                    <p>教师管理</p>
+                </a>
+            </li>
+            <li class="nav-item" th:class="${activeUri=='/classe/getAllClasse'?'nav-item active':'nav-item'}">
+                <a class="nav-link" href="#" th:href="@{/classe/getAllClasse}">
+                    <i class="la la-th-large"></i>
+                    <p>班级管理</p>
+                </a>
+            </li>
+            <li class="nav-item" th:class="${activeUri=='/question/getAllQuestion'?'nav-item active':'nav-item'}">
+                <a class="nav-link" href="#" th:href="@{/question/getAllQuestion}">
+                    <i class="la la-subscript"></i>
+                    <p>试题管理</p>
+                </a>
+            </li>
+            <li class="nav-item" th:class="${activeUri=='/paper/getAllPaper'?'nav-item active':'nav-item'}">
+                <a class="nav-link" href="#" th:href="@{/paper/getAllPaper}">
+                    <i class="la la-th"></i>
+                    <p>试卷管理</p>
+                </a>
+            </li>
+            <li class="nav-item" th:class="${activeUri=='/exam/getAllExam'?'nav-item active':'nav-item'}">
+                <a class="nav-link" href="#" th:href="@{/exam/getAllExam}">
+                    <i class="la la-map"></i>
+                    <p>考试管理</p>
+                </a>
+            </li>
+            <li class="nav-item" th:class="${activeUri=='/record/getAllRecord'?'nav-item active':'nav-item'}">
+                <a class="nav-link" href="#" th:href="@{/record/getAllRecord}">
+                    <i class="la la-sitemap"></i>
+                    <p>记录管理</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!--footer-->
+<footer class="footer" th:fragment="footer">
+    <div class="container-fluid">
+        <nav class="pull-left">
+            <ul class="nav">
+                <li class="nav-item"> </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/zhao}">
+                        Help
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{/}">
+                        Licenses
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="copyright ml-auto">
+            2020年1月1日 <i class="la la-heart heart text-danger"></i> by <a href="#">舒照</a> - 在线考试系统毕业设计 <a href="https://github.com/shuzhao11/quiz.git" target="_blank" title="模板之家">github地址</a></div>
+    </div>
+</footer>
+
+
+<!--pre-->
+<div id="examnav" th:fragment="examnav" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">在线考试系统</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="btn btn-info" th:class="${activeUri=='/exam/toHome'?'btn btn-warning':'btn btn-info'}" th:href="@{/exam/toHome}" href="#" disabled="">首页</a>
+        <a class="btn btn-info" th:class="${activeUri=='/exam/toExam'?'btn btn-warning':'btn btn-info'}" th:href="@{/exam/toExam}">考试</a>
+        <a class="btn btn-info" th:class="${activeUri=='/exam/toHist'?'btn btn-warning':'btn btn-info'}" th:href="@{/exam/toHist/}+${session.loger.studentId}">记录</a>
+    </nav>
+    <div class="col-md-1">
+        <a class="btn btn-outline-warning" href="#">用户</a>
+    </div>
+    <div class="col-md-1">
+        <a class="btn btn-outline-primary" href="#" th:text="${session.loger.getStudentAccount()}"></a>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-danger" href="#" th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+</body>
+</html>

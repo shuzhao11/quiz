@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>在线考试系统试卷记录</title>
+    <!-- Bootstrap core CSS -->
+    <link href="#" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <!--examnav-->
+    <div th:replace="commons/bar::#examnav(activeUri='/exam/toHist')"></div>
+
+    <div class="card-body">
+        <div class="card-sub">
+            考试记录<code class="highlighter-rouge">汇总</code>
+        </div>
+        <table class="table table-striped mt-3">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">考试名称</th>
+                <th scope="col">正确率</th>
+                <th scope="col">得分</th>
+                <th scope="col">详细</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="rec,recStat:${records}">
+                <td th:text="${recStat.count}"></td>
+                <td th:text="${rec.recordName}"></td>
+                <td th:text="${rec.recordAcc}"></td>
+                <td th:text="${rec.recordScore}">@</td>
+                <td><a class="btn btn-sm btn-info" th:href="@{/record/toShowExamHist/}+${rec.recordId}">详情</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--footer-->
+    <div th:replace="commons/bar::footer"></div>
+</div> <!-- /container -->
+</body>
+</html>

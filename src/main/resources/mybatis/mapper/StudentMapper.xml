@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.quiz.mapper.StudentMapper">
+	<resultMap id="studentResult" type="com.zhao.quiz.domain.Student">
+		<id property="studentId" column="student_id" />
+		<result property="studentName" column="student_name"/>
+		<result property="studentAccount" column="student_account"/>
+		<result property="studentGender" column="student_gender"/>
+		<result property="studentEmail" column="student_email"/>
+		<result property="studentPwd" column="student_pwd"/>
+		<result property="classeId" column="classe_id"/>
+		<association property="classe" column="#" javaType="com.zhao.quiz.domain.Classe" resultMap="classeResult"/>
+	</resultMap>
+	<resultMap id="classeResult" type="com.zhao.quiz.domain.Classe">
+		<id property="classeId" column="classe_id"/>
+		<result property="classeName" column="classe_name"/>
+	</resultMap>
+	<!--查询所有学生信息包括班级-->
+	<select id="queryAll" resultMap="studentResult">
+		select * from student left join classe	on student.classe_id = classe.classe_id
+	</select>
+	<!--根据id查询学生信息也包括班级-->
+    <select id="getStudentById" resultMap="studentResult" parameterType="Integer">
+		select * from student left join classe	on student.classe_id = classe.classe_id
+			where student_id =#{id}
+	</select>
+	<!--检查登录-->
+	<select id="check" parameterType="com.zhao.quiz.domain.Student" resultType="com.zhao.quiz.domain.Student">
+		select * from student where student_account=#{studentAccount} and student_pwd=#{studentPwd}
+	</select>
+	<!--添加学生，注册-->
+	<insert id="AddStudent" parameterType="com.zhao.quiz.domain.Student">
+		insert into student
+				(student_name,student_account,student_gender,student_email,student_pwd,classe_id)
+			values
+				(#{studentName},#{studentAccount},#{studentGender},#{studentEmail},#{studentPwd},#{classeId})
+	</insert>
+	<!--修改学生信息-->
+	<update id="EditStudent" parameterType="com.zhao.quiz.domain.Student">
+		update student
+				set student_name=#{studentName},student_account=#{studentAccount},student_gender=#{studentGender},
+				student_email=#{studentEmail},student_pwd=#{studentPwd},classe_id=#{classeId}
+				where student_id=#{studentId}
+	</update>
+</mapper>

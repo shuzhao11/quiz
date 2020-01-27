@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.quiz.mapper.ExamMapper">
+	<resultMap id="examResult" type="com.zhao.quiz.domain.Exam">
+		<id property="examId" column="exam_id" />
+		<result property="examName" column="exam_name"/>
+		<result property="paperId" column="paper_id"/>
+		<result property="examBegin" column="exam_begin"/>
+		<result property="examEnd" column="exam_end"/>
+		<association property="paper" column="#" javaType="com.zhao.quiz.domain.Paper" resultMap="paperResult"/>
+	</resultMap>
+	<resultMap id="paperResult" type="com.zhao.quiz.domain.Paper">
+		<id property="paperId" column="paper_id"/>
+		<result property="paperName" column="paper_name"/>
+	</resultMap>
+	<!--查询所有有效考试信息-->
+	<select id="queryAll" resultMap="examResult">
+		select * from exam left join paper on exam.paper_id = paper.paper_id
+		<![CDATA[ where exam_begin < NOW() and exam_end > NOW()]]>
+	</select>
+	<!--查询所有考试信息-->
+	<select id="getAllS" resultMap="examResult">
+		select * from exam left join paper on exam.paper_id = paper.paper_id
+	</select>
+	<!--根据id查询考试信息-->
+    <select id="getExamById" resultType="com.zhao.quiz.domain.Exam" parameterType="Integer">
+		select * from exam
+			where exam_id =#{id}
+	</select>
+	<!--添加考试-->
+	<insert id="AddExam" parameterType="com.zhao.quiz.domain.Exam">
+		insert into exam
+				(paper_id,exam_begin,exam_end)
+			values
+				(#{paperId},#{examBegin},#{examEnd})
+	</insert>
+</mapper>

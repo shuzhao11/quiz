@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.quiz.mapper.QuestionMapper">
+	<!--查询所有试题-->
+	<select id="queryAll" parameterType="com.zhao.quiz.domain.Question" resultType="com.zhao.quiz.domain.Question">
+		select * from question
+			<if test="questionCourse!=null">
+				<if test="questionCourse!='all'">
+					where question_course =#{questionCourse}
+					<if test="questionType!=null">
+						<if test='questionType!="k"'>
+							and question_type =#{questionType}
+						</if>
+					</if>
+				</if>
+				<if test="questionCourse=='all'">
+					<if test="questionType!=null">
+						<if test='questionType!="k"'>
+							where question_type =#{questionType}
+						</if>
+					</if>
+				</if>
+			</if>
+	</select>
+	<!--根据id查询试题-->
+	<select id="queryQuestionById" resultType="com.zhao.quiz.domain.Question">
+		select * from question where (question_id) = #{id}
+	</select>
+	<!--查询所有类型-->
+	<select id="queryAllType" resultType="com.zhao.quiz.domain.Question">
+		SELECT DISTINCT question_type FROM `question`
+	</select>
+	<!--查询所有课程-->
+	<select id="queryAllCourse" resultType="com.zhao.quiz.domain.Question">
+		SELECT DISTINCT question_course FROM `question`
+	</select>
+
+	<!--查询总题量-->
+	<select id="queryAllQuestionNums" resultType="Integer">
+		SELECT COUNT(*) FROM `question`
+	</select>
+
+	<resultMap id="byFiledId" type="java.util.Map">
+		<result column="question_course" property="questionCourse" jdbcType="VARCHAR" />
+		<result column="count" property="count" jdbcType="INTEGER" />
+	</resultMap>
+	<!--查找每个课程对应题量-->
+	<select id="queryNumOfQuestionType" resultMap="byFiledId" >
+   		SELECT question_course,COUNT(*) as count  FROM question  GROUP BY question_course
+   </select>
+
+	<!--根据试卷id和课程查找尚未对应分配试题-->
+	<select id="queryAllQueIdNotInPaperById" parameterType="com.zhao.quiz.domain.PapIdQuesCourse" resultType="com.zhao.quiz.domain.Question">
+		select
+			question_id
+				from question
+			where question_course = #{questionCourse}
+			 		and question_id not in (
+				select question_id from question_paper where paper_id = #{papid})
+	</select>
+
+	<!--添加试题-->
+	<insert id="addQuestion">
+		insert into
+			question
+				(question_type,question_course,question_name,question_opa,question_opb,question_opc,question_opd,question_opright)
+		values
+				(#{questionType},#{questionCourse},#{questionName},#{questionOpa},#{questionOpb},#{questionOpc},#{questionOpd},#{questionOpright})
+	</insert>
+
+	<!--随机批量增加-->
+	<insert id="AddAllQues" parameterType="java.util.List">
+		insert into question_paper
+				(question_id,paper_id)
+			values
+				<foreach collection="list" item="item" index="index" separator=",">
+					(#{item.questionId},
+					#{item.paperId})
+				</foreach>
+	</insert>
+
+
+	<!--更改试题-->
+	<update id="editQuestion" parameterType="com.zhao.quiz.domain.Question">
+		update
+			question
+		set
+			question_type=#{questionType},question_course=#{questionCourse},question_name=#{questionName}
+			,question_opa=#{questionOpa},question_opb=#{questionOpb},question_opc=#{questionOpc},
+			question_opd=#{questionOpd},question_opright=#{questionOpright}
+		where
+			question_id = #{questionId}
+	</update>
+	<!--根据id删除-->
+	<delete id="deleteQuestionById">
+		delete from question where question_id = #{questionId}
+	</delete>
+
+	<!--批量删除-->
+	<delete id="queryIdByPapQue" parameterType="java.util.Arrays">
+		delete from question_paper
+			where id in
+		<foreach collection="array" item="arr" index="no" open="("
+				 separator="," close=")">
+			#{arr}
+		</foreach>
+	</delete>
+</mapper>

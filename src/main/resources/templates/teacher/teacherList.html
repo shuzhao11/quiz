@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>在线考试系统后台教师管理页面</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/css/ready.css" th:href="@{/assets/css/ready.css}">
+    <link rel="stylesheet" href="assets/css/demo.css" th:href="@{/assets/css/demo.css}">
+</head>
+<body>
+<div class="wrapper">
+    <!--header-->
+    <div th:replace="commons/bar::header"></div>
+
+    <!--slidebar-->
+    <div th:replace="commons/bar::#sidebar(activeUri='/teacher/getAllTeacher')"></div>
+
+    <!--main panel-->
+    <div class="main-panel">
+        <div class="content">
+            <div class="container-fluid">
+                <h4 class="page-title">教师管理页面</h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div><h2><a class="btn btn-success" href="emp" th:href="@{/teacher/toAddTeacher}">教师添加</a></h2> </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-head-bg-success">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">姓名</th>
+                                        <th scope="col">账号</th>
+                                        <th scope="col">邮箱</th>
+                                        <th scope="col">密码</th>
+                                        <th scope="col">权力</th>
+                                        <th scope="col">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="tea,teaStat:${teachers}">
+                                        <td th:text="${teaStat.count}"></td>
+                                        <td>[[${tea.teacherName}]]</td>
+                                        <td th:text="${tea.teacherAccount}"></td>
+                                        <td th:text="${#strings.abbreviate(tea.teacherEmail,15)}"></td>
+                                        <td th:text="${tea.teacherPwd}"></td>
+                                        <td th:text="${tea.power}==0?'普通':'管理员'"></td>
+                                        <td>
+                                            <!--判断是管理员否-->
+                                            <u th:if="${session.logerd.power==0}">
+                                                <u th:if="${session.logerd.teacherId==tea.teacherId}">
+                                                    <a class="btn btn-sm btn-info" th:href="@{/teacher/}+${tea.teacherId}">编辑</a>
+                                                </u>
+                                            </u>
+                                            <u th:if="${session.logerd.power==1}">
+                                                    <a class="btn btn-sm btn-info" th:href="@{/teacher/}+${tea.teacherId}">编辑</a>
+                                            </u>
+                                            <!--判断教师是否是班主任，若是则不可删除-->
+                                            <u th:if="${session.logerd.power==1}">
+                                                <button th:attr="del_uri=@{/teacher/deleteTeacher/}+${tea.teacherId}" class="btn btn-sm btn-danger deleteBtn" th:if="!${teaId.contains(tea.teacherId)}">删除</button>
+                                                <button th:attr="del_uri=@{/teacher/deleteTeacher/}+${tea.teacherId}" class="btn btn-sm btn-danger deleteBtn" th:if="${teaId.contains(tea.teacherId)}" disabled>删除</button>
+                                            </u>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--footer-->
+        <div th:replace="commons/bar::footer"></div>
+</div>
+</div>
+//删除表单
+<form id="deleteTeacherForm" method="post">
+    <input type="hidden" name="_method" value="delete">
+</form>
+<!--映入jquery，src-->
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+<script th:src="@{/webjars/layer/src/layer.js}"></script>
+<script>
+    //删除指定id教师
+    $(".deleteBtn").click(function () {
+        //获取uri
+        // $(this).attr("del_uri")
+        //提交表单
+        // $("#deleteTeacherForm").attr("action",$(this).attr("del_uri")).submit();
+        if(confirm("确实要删除吗？")){
+            //提交表单
+            $("#deleteTeacherForm").attr("action",$(this).attr("del_uri")).submit();
+            layer.msg("删除成功", {time:2000, icon:6});
+        }else {
+            layer.msg("删除取消", {time:2000, icon:5, shift:6});
+        }
+      /*  $.ajax({
+            type: 'post',
+            dataType: 'text',
+            url: $(this).attr("del_uri"),
+            data: {},
+            cache: false,
+            async: true,
+            success: function (ajaxResult) {
+
+                layer.msg("删除成功", {time:2000, icon:6});
+            }
+
+        });*/
+
+        return false;
+    });
+
+</script>
+</body>
+</html>

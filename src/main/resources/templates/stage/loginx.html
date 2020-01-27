@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>后台</title>
+    <!-- Bootstrap core CSS -->
+    <link href="#" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body class="bg-info">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10"></div>
+        <div class="col-md-2">
+            <div class="form-group input-group input-group-lg">
+                <a th:href="@{/foreLogin}"><button class="btn btn-lg btn-warning" type="submit">前台登录</button></a>
+            </div>
+        </div>
+    </div>
+    <form class="form-signin" style="margin-left: 40%; margin-top: 15%;">
+        <div class="row">
+            <div class="form-group col-lg-4 input-group input-group-lg">
+            <h3 class="form-signin-heading">后台入口</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-4 input-group input-group-lg">
+                <label for="username" class="sr-only">用户名</label> <input
+                    type="text" id="username" name="teacherAccount" class="form-control"
+                    placeholder="用户名" required autofocus>
+            </div>
+            <span></span>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-4 input-group input-group-lg">
+                <label for="password" class="sr-only">密码</label> <input
+                    type="password" id="password" name="teacherPwd" class="form-control "
+                    placeholder="密码" required>
+            </div>
+            <span></span>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-2 input-group input-group-lg">
+                <button class="btn btn-lg btn-success btn-block" type="button" onclick="dologin()">登录</button>
+            </div>
+            <div class="form-group col-lg-2 input-group input-group-lg">
+                <button class="btn btn-lg btn-dark btn-block" type="reset">重置</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+<script src="bootstrap/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}"></script>
+<script th:src="@{/webjars/layer/src/layer.js}"></script>
+<script>
+    function dologin() {
+        var username = $("#username").val();
+        if (username == "") {
+            layer.msg("用户不能为空！", {time:2000, icon:5, shift:6}, function () {
+            });
+            return;
+        }
+        var password = $("#password").val();
+        if (password == "") {
+            layer.msg("密码不能为空！", {time:2000, icon:5, shift:6}, function(){
+            });
+            return;
+        }
+        /* $("#loginForm").submit(); */
+        var loadingIndex;
+        $.post({
+            type:"POST",
+            url:"/backLogin/check",
+            data:{
+                "teacherAccount":username,
+                "teacherPwd":password
+            },
+            //加载图标
+            beforeSend:function(){
+                loadingIndex = layer.msg('处理中', {icon: 16});
+            },
+            success:function(result){
+                console.log(result)
+                layer.close(loadingIndex);
+                if(result.success){
+                    window.location.href="index";
+                }else{
+                    layer.msg("用户名或密码错误！", {time:2000, icon:5, shift:6}, function(){});
+                }
+            }
+        });
+        return false;
+
+    }
+</script>
+</body>
+</html>
