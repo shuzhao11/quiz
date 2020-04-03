@@ -23,7 +23,7 @@
             <div class="container-fluid">
                 <h4 class="page-title">试卷管理页面</h4>
                 <div class="row">
-                    <div class="col-md-2"><h2><a class="btn btn-success" href="#" th:href="@{/paper/toAddPaper}">试卷添加</a></h2> </div>
+                    <div class="col-md-2"><h2><a class="btn btn-success" href="#" th:href="@{/record/showClaAcc}">班级及格率</a></h2> </div>
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
@@ -62,5 +62,31 @@
         <div th:replace="commons/bar::footer"></div>
     </div>
 </div>
+//删除表单
+<form id="deleteClasseForm" method="post">
+    <input type="hidden" name="_method" value="delete">
+</form>
+<!--映入jclary，src-->
+<script src="assets/js/core/jquery.3.2.1.min.js" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+<script th:src="@{/webjars/layer/src/layer.js}"></script>
+<script>
+    //删除指定id试题
+    $(".deleteBtn").click(function () {
+        //获取uri
+        // $(this).attr("del_uri")
+        //提交表单
+        // $("#deleteClasseForm").attr("action",$(this).attr("del_uri")).submit();
+        if(confirm("确实要删除吗？")){
+            //提交表单
+            $("#deleteClasseForm").attr("action",$(this).attr("del_uri")).submit();
+            layer.msg("删除成功", {time:2000, icon:6});
+        }else {
+            layer.msg("删除取消", {time:2000, icon:5, shift:6});
+        }
+        return false;
+    });
+
+</script>
+
 </body>
 </html>

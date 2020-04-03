@@ -19,4 +19,6 @@ public interface ClasseService {
     Classe queryByTeacherId(Integer id);
     //查询class表中所有对应教师
     List<Classe> queryAllTeacherId();
+    //根据id查询班级名称
+    Classe queryClaNameById(int claId);
 }

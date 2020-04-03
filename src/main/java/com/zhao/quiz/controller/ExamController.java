@@ -1,9 +1,6 @@
 package com.zhao.quiz.controller;
 
-import com.zhao.quiz.domain.Exam;
-import com.zhao.quiz.domain.Paper;
-import com.zhao.quiz.domain.QuestionPaper;
-import com.zhao.quiz.domain.Record;
+import com.zhao.quiz.domain.*;
 import com.zhao.quiz.service.ExamService;
 import com.zhao.quiz.service.PaperService;
 import com.zhao.quiz.service.RecordService;
@@ -87,7 +84,11 @@ public class ExamController {
         //核对答案得到成绩
         int k=0;    //哨兵
         Double y=0.0;    //正确数
-        int score=0;
+        int score=0;    //得分
+        int a=0;        //记录单选题个数
+        int b=0;        //记录多选题个数
+        int c=0;        //记录判断题个数
+        int totalScore=0;
         for (QuestionPaper qb:questionPapers){
             //若为单选题则正确+单选题分数
             if(qb.getQuestion().getQuestionType().equals("x")){
@@ -95,20 +96,34 @@ public class ExamController {
                     score+=qb.getPaper().getScoreSin();
                     y++;
                 }
+                a++;
                 k++;
             }else if(qb.getQuestion().getQuestionType().equals("y")){
                 if(ans.get(k).equals(RightAns.get(k))){
                     score+=qb.getPaper().getScoreChe();
                     y++;
                 }
+                b++;
                 k++;
             }else {
                 if(ans.get(k).equals(RightAns.get(k))){
                     score+=qb.getPaper().getScoreJug();
                     y++;
                 }
+                c++;
                 k++;
             }
+        }
+        int scoreSin1 = questionPapers.get(0).getPaper().getScoreSin();
+        int scoreChe1 = questionPapers.get(0).getPaper().getScoreChe();
+        int scoreJug1 = questionPapers.get(0).getPaper().getScoreJug();
+        int bool=recordService.queryBooleanToscore(paperId);
+        if (bool==0){
+        totalScore=scoreSin1*a+scoreChe1*b+scoreJug1*c; //得到每张试卷总分
+        Toscore toscore=new Toscore();
+        toscore.setPaperId(paperId);
+        toscore.setToscore(totalScore);
+        recordService.AddToScore(toscore);
         }
         //保存答题记录
         String answer = String.join(",", ans);
@@ -123,7 +138,6 @@ public class ExamController {
         record.setRecordAnswer(answer);
         record.setRecordAcc(recordAcc);
         record.setRecordScore(recordScore);
-        System.out.println(record);
         recordService.addRecord(record);
         return "redirect:/exam/toExam";
     }

@@ -1,7 +1,6 @@
 package com.zhao.quiz.mapper;
 
 import com.zhao.quiz.domain.Classe;
-import com.zhao.quiz.domain.Teacher;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -23,4 +22,6 @@ public interface ClasseMapper {
     Classe queryByTeacherId(Integer id);
 
     List<Classe> queryAllTeacherId();
+
+    Classe queryClaNameById(int claId);
 }

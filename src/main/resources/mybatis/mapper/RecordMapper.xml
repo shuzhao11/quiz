@@ -34,11 +34,52 @@
 	<select id="queryRankAccRecord" resultMap="RecordResult">
 		select * from record left join student	on record.student_id = student.student_id group by record_acc desc
 	</select>
+
+	<!--查询所有考试名称-->
+	<select id="queryAllExam" resultType="com.zhao.quiz.domain.Record">
+		SELECT distinct record_name,paper_id FROM record
+	</select>
+
+	<!--查询所有考试中对应所有班级-->
+	<select id="queryAllClass" resultType="com.zhao.quiz.domain.Classe" parameterType="String">
+		SELECT distinct classe_id FROM record left join student on record.student_id = student.student_id
+			where record_name =#{exaName}
+	</select>
+
+	<!--查询对应考试对应班级参考人数-->
+	<select id="queryAllScore" resultType="Integer" parameterType="com.zhao.quiz.domain.RecordExam">
+		SELECT count(*) FROM record left join student on record.student_id = student.student_id
+				where student.classe_id = #{claId} and  record.record_name = #{exaName}
+	</select>
+	<!--查询对应考试对应班级及格人数-->
+	<select id="queryAccScore" resultType="Integer" parameterType="com.zhao.quiz.domain.RecordExam">
+		SELECT count(*) FROM record left join student on record.student_id = student.student_id
+				where record.record_name =#{exaName} and student.classe_id=#{claId} and record_score>=#{toscore}
+	</select>
+
+	<!--查询是否已存在对应paperid总分记录-->
+	<select id="queryBooleanToscore" resultType="Integer" parameterType="Integer">
+		SELECT count(*) FROM toscore where paper_id=#{paperId}
+	</select>
+
+	<!--根据paperid查询总分-->
+	<select id="queryToscore" resultType="Integer" parameterType="Integer">
+		SELECT toscore FROM toscore where paper_id=#{paperId}
+	</select>
+
 	<!--添加记录-->
 	<insert id="addRecord" parameterType="com.zhao.quiz.domain.Record">
 		insert into record
 				(record_name,student_id,paper_id,record_answer,record_acc,record_score)
 			values
 				(#{recordName},#{studentId},#{paperId},#{recordAnswer},#{recordAcc},#{recordScore})
+	</insert>
+
+	<!--为每张试卷添加总分记录-->
+	<insert id="AddToScore" parameterType="com.zhao.quiz.domain.Toscore">
+		insert into toscore
+				(paper_id,toscore)
+			values
+				(#{paperId},#{toscore})
 	</insert>
 </mapper>

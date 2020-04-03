@@ -33,18 +33,43 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <select class="form-control form-control-sm" name="questionCourse">
-                                            <option th:each="quecou:${questionCourses}" th:if="${quecou.getQuestionCourse()}=='all'" th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}"></option>
-                                            <option th:each="quecou:${questionCourses}" th:if="${quecou.getQuestionCourse()}!='all'" th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}"></option>
+                                            <!--<option th:each="quecou:${questionCourses}" th:if="${quecou.getQuestionCourse()}=='all'" th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}"></option>
+                                            <option th:each="quecou:${questionCourses}" th:if="${quecou.getQuestionCourse()}!='all'" th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}"></option>-->
+
+                                            <u th:each="quecou:${questionCourses}"  th:if="${quecou.getQuestionCourse()}=='all'">
+                                                <option th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}" th:if="${quecou.getQuestionCourse()}==${questionCourseresRes}" selected></option>
+                                                <option th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}" th:if="${quecou.getQuestionCourse()}!=${questionCourseresRes}" ></option>
+                                            </u>
+                                            <u th:each="quecou:${questionCourses}"  th:if="${quecou.getQuestionCourse()}!='all'">
+                                                <option  th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}" th:if="${quecou.getQuestionCourse()}==${questionCourseresRes}" selected></option>
+                                                <option  th:text="${quecou.getQuestionCourse()}" th:value="${quecou.getQuestionCourse()}" th:if="${quecou.getQuestionCourse()}!=${questionCourseresRes}"></option>
+                                            </u>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                    <div class="form-group">
                                        <select class="form-control form-control-sm" name="questionType">
-                                           <option th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='k'" th:text="所有" th:value="${quetype.getQuestionType()}"></option>
-                                           <option th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='x'" th:text="单选题" th:value="${quetype.getQuestionType()}"></option>
+                                           <u  th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='k'">
+                                               <option th:text="所有" th:value="${quetype.getQuestionType()}" th:if="${quetype.getQuestionType()}==${questionTypesRes}" selected></option>
+                                               <option th:text="所有" th:value="${quetype.getQuestionType()}" th:if="${quetype.getQuestionType()}!=${questionTypesRes}"></option>
+                                           </u>
+                                           <u  th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='x'">
+                                               <option th:text="单选题" th:value="${quetype.getQuestionType()}" th:if="${quetype.getQuestionType()}==${questionTypesRes}" selected></option>
+                                               <option th:text="单选题" th:value="${quetype.getQuestionType()}" th:if="${quetype.getQuestionType()}!=${questionTypesRes}"></option>
+                                           </u>
+
+                                           <u  th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='y'">
+                                               <option th:text="多选题" th:value="${quetype.getQuestionType()}" th:if="${quetype.getQuestionType()}==${questionTypesRes}" selected></option>
+                                               <option th:text="多选题" th:value="${quetype.getQuestionType()}" th:if="${quetype.getQuestionType()}!=${questionTypesRes}"></option>
+                                           </u>
+                                           <u  th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='z'">
+                                               <option th:text="判断题" th:value="${quetype.getQuestionType()}" th:if="${quetype.getQuestionType()}==${questionTypesRes}" selected></option>
+                                               <option th:text="判断题" th:value="${quetype.getQuestionType()}" th:if="${quetype.getQuestionType()}!=${questionTypesRes}"></option>
+                                           </u>
+                                           <!--<option th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='x'" th:text="单选题" th:value="${quetype.getQuestionType()}"></option>
                                            <option th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='y'" th:text="多选题" th:value="${quetype.getQuestionType()}"></option>
-                                           <option th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='z'" th:text="判断题" th:value="${quetype.getQuestionType()}"></option>
+                                           <option th:each="quetype:${questionTypes}" th:if="${quetype.getQuestionType()}=='z'" th:text="判断题" th:value="${quetype.getQuestionType()}"></option>-->
                                        </select>
                                    </div>
                                 </div>

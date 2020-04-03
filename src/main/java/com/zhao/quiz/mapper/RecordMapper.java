@@ -1,6 +1,9 @@
 package com.zhao.quiz.mapper;
 
+import com.zhao.quiz.domain.Classe;
 import com.zhao.quiz.domain.Record;
+import com.zhao.quiz.domain.RecordExam;
+import com.zhao.quiz.domain.Toscore;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -29,4 +32,18 @@ public interface RecordMapper {
     List<Record> queryRankScoreRecord();
 
     List<Record> queryRankAccRecord();
+
+    List<Record> queryAllExam();
+
+    List<Classe> queryAllClass(String exaName);
+
+    int queryAllScore(RecordExam recordExam);
+
+    int queryAccScore(RecordExam recordExam);
+
+    void AddToScore(Toscore toscore);
+
+    int queryBooleanToscore(Integer paperId);
+
+    int queryToscore(int paperId);
 }

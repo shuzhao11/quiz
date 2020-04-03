@@ -128,7 +128,6 @@ public class LoginController {
     //添加具体操作
     @RequestMapping("/prexam/AddStudent")
     public String AddStudent(Student student){
-        System.out.println(student);
         studentService.AddStudent(student);
         return "redirect:/foreLogin";
     }

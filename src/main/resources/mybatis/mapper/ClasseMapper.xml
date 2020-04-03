@@ -43,6 +43,11 @@
 		SELECT DISTINCT teacher_id from classe
 	</select>
 
+	<!--根据id查询班级名-->
+	<select id="queryClaNameById" parameterType="Integer" resultType="com.zhao.quiz.domain.Classe">
+		SELECT * FROM `classe` where classe_id=#{claId}
+	</select>
+
 	<!--添加班级-->
 	<insert id="addClasse">
 		insert into

@@ -22,17 +22,17 @@
                 <div class="content">
                     <div class="container">
                         <h4 class="page-title">学生注册页面</h4>
-                        <form th:action="@{/prexam/AddStudent}">
+                        <form th:action="@{/prexam/AddStudent}" method="post">
                             <div class="col-md-8">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="form-group">
                                             <label for="name">姓名</label>
-                                            <input type="text" class="form-control" name="studentName" id="name" placeholder="shuzhao">
+                                            <input type="text" class="form-control" required name="studentName" id="name" placeholder="shuzhao">
                                         </div>
                                         <div class="form-group">
                                             <label for="name">账号</label>
-                                            <input type="text" class="form-control" name="studentAccount" id="account" placeholder="数字字母">
+                                            <input type="text" class="form-control" required name="studentAccount" id="account" placeholder="数字字母">
                                             <small id="accounthelp" class="form-text text-muted"></small>
                                         </div>
                                         <div class="form-check">
@@ -48,12 +48,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="email">邮件</label>
-                                            <input type="email" class="form-control" id="email" name="studentEmail" placeholder="Enter Email">
+                                            <input type="email" class="form-control" required id="email" name="studentEmail" placeholder="Enter Email">
                                             <small id="emailHelp" class="form-text text-muted"></small>
                                         </div>
                                         <div class="form-group">
                                             <label for="password">密码</label>
-                                            <input type="password" class="form-control" id="password" name="studentPwd" placeholder="Password">
+                                            <input type="password" class="form-control" required id="password" name="studentPwd" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <!--由数据库中查询出来-->
@@ -63,11 +63,13 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="card-action">
-                                        <button class="btn btn-success">Submit</button>
+                                        <button class="btn btn-success" type="submit">Submit</button>
                                         <button class="btn btn-danger" type="reset">Cancel</button>
-                                        <a class="btn btn-sm btn-info" th:href="@{/foreLogin}">返回</a>
+                                        <button><a class="btn btn-sm btn-info" th:href="@{/foreLogin}">返回</a></button>
                                     </div>
+
                                 </div>
                             </div>
                         </form>

@@ -27,7 +27,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/backLogin")//排除登录操作
                 .excludePathPatterns("/backLogin/check")//排除登录操作
                 .excludePathPatterns("/foreCheck/check")//排除登录操作
-                .excludePathPatterns("/prexam/toAddStudent");//排除注册页面
+                .excludePathPatterns("/prexam/toAddStudent")//排除注册页面
+                .excludePathPatterns("/prexam/AddStudent");//排除注册页面
 //                .excludePathPatterns("/countdownPage");//排除倒计时页面
     }
 }

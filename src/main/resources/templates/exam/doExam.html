@@ -18,7 +18,7 @@
     <div id="examnav" th:fragment="examnav" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal">在线考试系统</h5>
         <nav class="my-2 my-md-0 mr-md-5">
-            <a class="text-dark mr-md-5" href="#" disabled th:text="${paperName.paperName}"></a>
+            <a class="text-dark mr-md-5" href="#" disabled th:text="'!考试!'+${paperName.paperName}"></a>
             <a class="btn btn-info" th:class="${activeUri=='/exam/toHome'?'btn btn-warning':'btn btn-info'}" th:href="@{/exam/toHome}" href="#" disabled="">首页</a>
             <a class="btn btn-info" th:class="${activeUri=='/exam/toExam'?'btn btn-warning':'btn btn-info'}" th:href="@{/exam/toExam}">考试</a>
             <a class="btn btn-info" th:class="${activeUri=='/exam/toHist'?'btn btn-warning':'btn btn-info'}" th:href="@{/exam/toHist/}+${session.loger.studentId}">记录</a>
@@ -40,6 +40,7 @@
         <div id="timemchine" class="alert alert-success col-3 fixedNav fixed-top m-lg-4" role="alert" th:text="'现 在 时 间 :'+${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}+'----------------结 束 时 间 :'+${#dates.format(examById.examEnd, 'yyyy-MM-dd hh:mm:ss')}+'----------------温馨提示：错选漏选不得分，提交后不可再次答题,请在规定时间内提交试卷.'"></div>
         <div class="col-md-3"></div>
         <form th:action="@{/exam/submitExam}" method="post">
+            <div class="col-md-10 text-warning" th:text="'单选题:'+${questionPapers.get(0).paper.getScoreSin()}+'分/个；多选题:'+${questionPapers.get(0).paper.getScoreChe()}+'分/个；判断题:'+${questionPapers.get(0).paper.getScoreJug()}+'分/个'"></div>
             <button class="btn btn-success" th:text="提交"></button>
             <!--提交试卷id，学生id-->
             <input type="hidden" name="paperId" th:each="qb,qbStat:${questionPapers}" th:value="${qb.paperId}">

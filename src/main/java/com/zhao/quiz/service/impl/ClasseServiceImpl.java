@@ -50,5 +50,10 @@ public class ClasseServiceImpl implements ClasseService {
         return classeMapper.queryAllTeacherId();
     }
 
+    @Override
+    public Classe queryClaNameById(int claId) {
+        return classeMapper.queryClaNameById(claId);
+    }
+
 
 }

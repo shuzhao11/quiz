@@ -3,8 +3,10 @@ package com.zhao.quiz;
 import com.zhao.quiz.domain.Paper;
 import com.zhao.quiz.domain.Question;
 import com.zhao.quiz.domain.QuestionPaper;
+import com.zhao.quiz.domain.RecordExam;
 import com.zhao.quiz.mapper.PaperMapper;
 import com.zhao.quiz.mapper.QuestionMapper;
+import com.zhao.quiz.service.RecordService;
 import org.apache.tomcat.util.buf.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
@@ -23,6 +25,9 @@ class QuizApplicationTests {
     private PaperMapper paperMapper;
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private RecordService recordService;
+
     @Test
     void contextLoads() {
     }
@@ -59,6 +64,15 @@ class QuizApplicationTests {
                     }
                 System.out.println("+++++++++++++++++++++++++++++++++");
 
+    }
+    @Test
+    public void test4(){
+        RecordExam recordExam=new RecordExam();
+        recordExam.setClaId(1);
+        recordExam.setExaName("java综合测试");
+        System.out.println(recordExam);
+        int i = recordService.queryAllScore(recordExam);
+        System.out.println(i);
     }
 
 }
