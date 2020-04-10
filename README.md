@@ -1,4 +1,4 @@
-介绍: 
+介绍：
 ----
 *  项目名称：`在线考试系统`
 *  开发环境：Tomcat9.0 Mysql5.17 springboot、springmvc、mybatis、thymeleaf、bootstrap、maven、druid、jquery、ajax、layer、lombok、              devtools、pagehelper 
