@@ -8,9 +8,9 @@
 截图：
 ----
 <img src="https://github.com/shuzhao11/quiz/blob/master/images/Image.png" width="1080" heigh="720"/>
-<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image.png1" width="1080" heigh="720"/>
-<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image.png2" width="1080" heigh="720"/>
-<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image.png3" width="1080" heigh="720"/>
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image1.png" width="1080" heigh="720"/>
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image2.png" width="1080" heigh="720"/>
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image3.png" width="1080" heigh="720"/>
 
 提示：
 ----
