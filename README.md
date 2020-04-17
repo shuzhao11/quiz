@@ -7,10 +7,53 @@
 
 截图：
 ----
-<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image.png" width="1080" heigh="720"/>
-<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image1.png" width="1080" heigh="720"/>
-<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image2.png" width="1080" heigh="720"/>
-<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image3.png" width="1080" heigh="720"/>
+### 前台
+*  前台首页
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image.png" width="1080" heigh="720"/>,
+*  学生注册
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image6regist.png" width="1080" heigh="720"/>,
+*  前台登录
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image1.png" width="1080" heigh="720"/>,
+*  登录后
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image3.png" width="1080" heigh="720"/>,
+*  考试列表
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image4.png" width="1080" heigh="720"/>,
+*  具体考试
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image5a.png" width="1080" heigh="720"/>,
+*  记录列表
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image5.png" width="1080" heigh="720"/>,
+*  具体记录
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image6.png" width="1080" heigh="720"/>,
+
+### 后台
+*  后台登录
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image2.png" width="1080" heigh="720"/>,
+*  后台首页
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image7.png" width="1080" heigh="720"/>,
+*  教师管理
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image8.png" width="1080" heigh="720"/>,
+*  教师编辑
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image6tea.png" width="1080" heigh="720"/>,
+*  教师删除
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image8del.png" width="1080" heigh="720"/>,
+*  试题管理
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image9.png" width="1080" heigh="720"/>,
+*  试卷管理
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image10.png" width="1080" heigh="720"/>,
+*  人工组题
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image10per.png" width="1080" heigh="720"/>,
+*  批量移除
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image10que.png" width="1080" heigh="720"/>,
+*  随机组题
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image11.png" width="1080" heigh="720"/>,
+*  考试管理
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image12.png" width="1080" heigh="720"/>,
+*  记录管理
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image13.png" width="1080" heigh="720"/>,
+*  及格率
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image14.png" width="1080" heigh="720"/>,
+*  连接池监控
+<img src="https://github.com/shuzhao11/quiz/blob/master/images/Image15.png" width="1080" heigh="720"/>,
 
 提示：
 ----
