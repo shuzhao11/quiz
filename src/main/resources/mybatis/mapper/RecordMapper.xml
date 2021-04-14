@@ -28,11 +28,11 @@
 	</select>
 	<!--根据分数排名-->
 	<select id="queryRankScoreRecord" resultMap="RecordResult">
-		select * from record left join student	on record.student_id = student.student_id group by record_score desc
+		select * from record left join student	on record.student_id = student.student_id order by record_score desc
 	</select>
 	<!--根据正确率排名-->
 	<select id="queryRankAccRecord" resultMap="RecordResult">
-		select * from record left join student	on record.student_id = student.student_id group by record_acc desc
+		select * from record left join student	on record.student_id = student.student_id order by record_acc desc
 	</select>
 
 	<!--查询所有考试名称-->
