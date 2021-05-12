@@ -23,7 +23,7 @@
             <h2 th:text="${exa.paper.paperName}"></h2>
             <p th:text="'开始时间：'+${#dates.format(exa.examBegin, 'yyyy-MM-dd HH:mm')}"></p>
             <p th:text="'结束时间：'+${#dates.format(exa.examEnd, 'yyyy-MM-dd HH:mm')}"></p>
-            <p><a class="btn btn-default" href="#" th:href="@{/exam/toDoExam/}+${exa.paperId}+'?examId='+${exa.examId}" role="button">开始考试 »</a></p>
+            <p><a class="btn btn-default" href="#" th:href="'@{/exam/toDoExam/}'+${exa.paperId}+'?examId='+${exa.examId}" role="button">开始考试 »</a></p>
         </div><!--/.col-xs-6.col-lg-4-->
 
     </div>
