@@ -7,7 +7,6 @@ import com.zhao.quiz.domain.RecordExam;
 import com.zhao.quiz.mapper.PaperMapper;
 import com.zhao.quiz.mapper.QuestionMapper;
 import com.zhao.quiz.service.RecordService;
-import org.apache.tomcat.util.buf.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -11,6 +11,7 @@
     <groupId>com.zhao</groupId>
     <artifactId>quiz</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>quiz</name>
     <description>Demo project for Spring Boot</description>
 
@@ -30,13 +31,24 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
@@ -114,8 +126,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- spring-boot:run 中文乱码解决 --><configuration><fork>true</fork><!--增加jvm参数--><jvmArguments>-Dfile.encoding=UTF-8</jvmArguments></configuration><dependencies><dependency><groupId>org.springframework</groupId><artifactId>springloaded</artifactId><version>1.2.5.RELEASE</version></dependency></dependencies>
             </plugin>
         </plugins>
+
     </build>
 
 </project>
